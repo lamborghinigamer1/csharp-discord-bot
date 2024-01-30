@@ -1,6 +1,6 @@
 ﻿namespace DiscordBot;
 
-public class Messages(string token, ulong guildId) : Connection(token, guildId)
+public class Messages(Credentials credentials) : Connection(credentials)
 {
     public void SendMessage(string message)
     {

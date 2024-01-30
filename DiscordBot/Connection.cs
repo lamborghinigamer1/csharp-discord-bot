@@ -1,16 +1,13 @@
 using System.Net.WebSockets;
 using System.Text;
-using System.Text.Json;
 
 namespace DiscordBot;
 
-public class Connection(string token, ulong guildId) // Using primary constructor
+public class Connection(Credentials credentials) // Using primary constructor
 {
     private const string GatewayUrl = "wss://gateway.discord.gg/?v=10&encoding=json";
 
-    private string Token { get; } = token; // Get the token
-
-    private ulong GuildId { get; } = guildId; // Get the guild id
+    private Credentials Credentials { get; } = credentials; // Get the token and guild id
 
     private readonly ClientWebSocket socket = new(); // Create a new websocket
 
@@ -18,7 +15,7 @@ public class Connection(string token, ulong guildId) // Using primary constructo
     {
         try
         {
-            await socket.ConnectAsync(new Uri($"{GatewayUrl}&token={Token}"), CancellationToken.None);
+            await socket.ConnectAsync(new Uri($"{GatewayUrl}&token={Credentials.Token}"), CancellationToken.None);
 
             var buffer = new byte[1024];
             var receiveResult = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
@@ -40,26 +37,8 @@ public class Connection(string token, ulong guildId) // Using primary constructo
         }
     }
 
-    private async Task SendIdenficationAsync()
+    private async Task SendIdentificationAsync()
     {
-        var identificationPayload = new
-        {
-            op = 2, // Identify operation code
-            d = new
-            {
-                token = Token,
-                intents = 513, // Your bot's intent (e.g., GUILD_MESSAGES) - modify as needed
-                properties = new
-                {
-                        $os = "windows",
-                        $browser = "",
-                        $device = "your-bot-name"
-                }
-            }
-        };
-        var payloadJson = JsonSerializer.Serialize(identificationPayload);
-        var payloadBytes = Encoding.UTF8.GetBytes(payloadJson);
-
-        await socket.SendAsync(new ArraySegment<byte>(payloadBytes), WebSocketMessageType.Text, true, CancellationToken.None);
+        await socket.SendAsync(new ArraySegment<byte>(), WebSocketMessageType.Text, true, CancellationToken.None);
     }
 }

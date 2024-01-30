@@ -9,7 +9,7 @@ class Program
 
         var config = configReader.ParseConfig();
 
-        var messages = new Messages(config.Token, config.GuildId);
+        var messages = new Messages(config);
 
         await messages.ConnectAsync();
 

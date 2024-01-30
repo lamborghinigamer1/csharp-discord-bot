@@ -1,4 +1,4 @@
-namespace DiscordTest;
+namespace DiscordBot;
 
 public struct Credentials()
 {
