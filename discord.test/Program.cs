@@ -1,14 +1,18 @@
 ﻿using DiscordBot;
 
+namespace DiscordTest;
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
-        var messages = new Messages
-        {
-            ChannelName = "hoi"
-        };
+        var configReader = new ConfigReader();
 
-        messages.SendMessage("Hello");
+        var config = configReader.ParseConfig();
+
+        var messages = new Messages(config.Token, config.GuildId);
+
+        await messages.ConnectAsync();
+
+        messages.SendMessage("Hoi");
     }
 }
