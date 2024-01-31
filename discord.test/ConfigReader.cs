@@ -3,17 +3,29 @@ using DiscordBot;
 
 namespace DiscordTest;
 
-public class ConfigReader
+/// <summary>
+/// Class responsible for reading and parsing configuration from a JSON file.
+/// </summary>
+public class ConfigReader(string configFile)
 {
+    private readonly string _configFile = configFile;
 
-    private const string ConfigFilePath = "config.json";
-
-    private bool ConfigExists()
+    /// <summary>
+    /// Parses the configuration from the specified JSON file.
+    /// </summary>
+    /// <returns>The parsed settings and token configuration.</returns>
+    public Config ParseConfig()
     {
         try
         {
-            File.OpenRead(ConfigFilePath);
-            return true;
+            var configjson = File.ReadAllText(_configFile);
+            var parsedconfig = JsonSerializer.Deserialize<Config>(configjson);
+            return parsedconfig;
+        }
+        catch (JsonException err)
+        {
+            Console.WriteLine(err);
+            throw;
         }
         catch (FileNotFoundException)
         {
@@ -23,23 +35,6 @@ public class ConfigReader
         catch (IOException)
         {
             Console.WriteLine($"Error accessing config.json");
-            throw;
-        }
-    }
-
-    public Credentials ParseConfig()
-    {
-        try
-        {
-            ConfigExists();
-            var configjson = File.OpenRead(ConfigFilePath);
-            var parsedconfig = JsonSerializer.Deserialize<Credentials>(configjson);
-            return parsedconfig;
-
-        }
-        catch (JsonException err)
-        {
-            Console.WriteLine(err);
             throw;
         }
     }

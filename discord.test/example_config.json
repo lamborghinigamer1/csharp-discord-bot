@@ -1,4 +1,9 @@
 {
-    "Token": "",
-    "GuildId": 0
+    "DiscordConfig": {
+        "Token": "",
+        "GuildId": 0
+    },
+    "Settings": {
+        "Debugging": true
+    }
 }

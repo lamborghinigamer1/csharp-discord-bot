@@ -1,6 +1,6 @@
 ﻿namespace DiscordBot;
 
-public class Messages(Credentials credentials) : Connection(credentials)
+public class Messages(DiscordConfig discordConfig) : Connection(discordConfig)
 {
     public void SendMessage(string message)
     {
