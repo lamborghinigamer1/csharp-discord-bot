@@ -4,6 +4,7 @@
     <ProjectReference Include="..\DiscordBot\DiscordBot.csproj" />
     <None Update="config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
   </ItemGroup>
 
