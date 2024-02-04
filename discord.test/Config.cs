@@ -2,12 +2,12 @@ using DiscordBot;
 
 namespace DiscordTest;
 
-public struct Config
+struct Config
 {
-    public required DiscordConfig DiscordConfig { get; set; }
+    public DiscordConfig DiscordConfig { get; set; }
     /// <summary>
     /// The config data with token and guildid
     /// </summary>
 
-    public required Settings Settings { get; set; }
+    public Settings Settings { get; set; }
 }

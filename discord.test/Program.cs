@@ -1,7 +1,7 @@
 ﻿using DiscordBot;
 
 namespace DiscordTest;
-public class Program
+class Program
 {
     static async Task Main(string[] args)
     {
@@ -10,6 +10,7 @@ public class Program
         var config = configReader.ParseConfig();
 
         var messages = new Messages(config.DiscordConfig);
+
         await messages.ConnectAsync();
 
         messages.SendMessage("Hoi");

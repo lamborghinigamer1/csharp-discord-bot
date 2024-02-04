@@ -6,7 +6,7 @@ namespace DiscordTest;
 /// Class responsible for reading and parsing configuration from a JSON file.
 /// </summary>
 /// <param name="configFile"></param>
-public class ConfigReader(string configFile)
+class ConfigReader(string configFile)
 {
     private readonly string _configFile = configFile;
 
